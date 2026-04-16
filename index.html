@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>일본어 이미지 단어장</title>
+  <script src="words_data.js"></script>
+  <meta name="theme-color" content="#4f46e5" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --yellow:      #FFC300;
+      --yellow-dark: #E5A800;
+      --yellow-soft: #FFF8E1;
+      --navy:        #1E1A3C;
+      --navy-700:    #2D2760;
+      --navy-soft:   #EEEAF8;
+      --line:        #EBEBEB;
+      --text:        #1A1A2E;
+      --muted:       #8A8A9A;
+      --white:       #ffffff;
+      --green:       #22C55E;
+      --red:         #EF4444;
+      --shadow:      0 8px 32px rgba(30, 26, 60, 0.10);
+      --shadow-lg:   0 16px 48px rgba(30, 26, 60, 0.14);
+    }
+
+    html, body {
+      min-height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", sans-serif;
+      background: #FAFAFA;
+      color: var(--text);
+    }
+
+    body { padding: 20px 16px 48px; }
+
+    .app { width: min(100%, 520px); margin: 0 auto; }
+
+    .btn {
+      border: none;
+      border-radius: 999px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+    .btn-primary {
+      background: var(--navy);
+      color: #fff;
+      font-size: 17px;
+      padding: 18px;
+      width: 100%;
+      letter-spacing: 0.02em;
+    }
+
+    .btn-ghost {
+      background: var(--navy-soft);
+      color: var(--navy);
+      border: none;
+      font-size: 14px;
+      padding: 10px 20px;
+    }
+
+    .card {
+      background: #fff;
+      border: none;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    /* ══════════════════════════════
+       메인 화면
+    ══════════════════════════════ */
+    .main-hero {
+      background: var(--navy);
+      border-radius: 28px;
+      padding: 32px 24px;
+      margin-bottom: 24px;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .main-hero::after {
+      content: '🇯🇵';
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 72px;
+      opacity: 0.25;
+    }
+
+    .main-hero .logo { display: none; }
+
+    .main-hero h1 {
+      font-size: 24px;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+
+    .main-hero p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.6;
+    }
+
+    .section-label {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+    }
+
+    .level-grid {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .level-btn {
+      flex: 1;
+      border: 2px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 800;
+      padding: 12px 4px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .level-btn.selected {
+      border-color: var(--yellow);
+      background: var(--yellow);
+      color: var(--navy);
+    }
+
+    .mode-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .mode-btn {
+      border: 2px solid var(--line);
+      border-radius: 20px;
+      background: #fff;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 800;
+      padding: 20px 12px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+      box-shadow: var(--shadow);
+    }
+
+    .mode-btn .mode-icon { font-size: 32px; display: block; margin-bottom: 10px; }
+    .mode-btn .mode-name { display: block; font-size: 15px; color: var(--text); }
+    .mode-btn .mode-desc { display: block; font-size: 11px; font-weight: 600; margin-top: 4px; color: var(--muted); }
+
+    .mode-btn.selected {
+      border-color: var(--yellow);
+      background: var(--yellow-soft);
+    }
+
+    .mode-btn.selected .mode-name { color: var(--navy); }
+    .mode-btn.selected .mode-desc { color: var(--navy-700); }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .stat-box {
+      background: #fff;
+      border-radius: 18px;
+      padding: 16px 10px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .stat-box .stat-val {
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--navy);
+      line-height: 1;
+    }
+
+    .stat-box .stat-lbl {
+      margin-top: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .config-toggle {
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    .config-panel {
+      background: var(--navy-soft);
+      border-radius: 20px;
+      padding: 18px;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    .config-panel.open { display: block; }
+
+    .config-panel label {
+      display: block;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .config-input {
+      width: 100%;
+      border: 1.5px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      color: var(--text);
+      font-size: 13px;
+      padding: 10px 14px;
+      outline: none;
+      margin-bottom: 10px;
+    }
+
+    .config-input:focus { border-color: var(--yellow-dark); }
+    .config-input:last-child { margin-bottom: 0; }
+
+    .config-hint {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+      margin-bottom: 10px;
+    }
+
+    .config-download-btn {
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    /* ══════════════════════════════
+       학습 모드
+    ══════════════════════════════ */
+    .study-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .study-title { font-size: 16px; font-weight: 900; color: var(--navy); }
+    .study-count { font-size: 14px; font-weight: 700; color: var(--muted); }
+
+    .progress-bar-wrap {
+      height: 6px;
+      background: var(--line);
+      border-radius: 99px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--yellow);
+      border-radius: 99px;
+      transition: width 0.3s ease;
+    }
+
+    .flashcard {
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 16px;
+      background: #fff;
+      cursor: pointer;
+      user-select: none;
+      touch-action: pan-y;
+    }
+
+    .card-image {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-image-placeholder {
+      width: 100%;
+      height: 220px;
+      background: linear-gradient(135deg, #FFF8E1, #FFF3CD);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 72px;
+      overflow: hidden;
+    }
+
+    /* 이미지 + 한글 오버레이 래퍼 */
+    .img-wrap {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .img-korean-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 28px 18px 14px;
+      background: linear-gradient(transparent, rgba(20, 18, 40, 0.72));
+      color: #fff;
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 0.01em;
+    }
+
+    .overlay-english {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      opacity: 0.80;
+      margin-top: 3px;
+      letter-spacing: 0.02em;
+    }
+
+    .card-body { padding: 22px; }
+
+    .card-japanese {
+      font-size: 52px;
+      font-weight: 900;
+      color: var(--navy);
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+
+    .card-hiragana {
+      font-size: 18px;
+      color: var(--yellow-dark);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .card-korean {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .card-english {
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .card-category {
+      display: inline-block;
+      margin-top: 12px;
+      background: var(--yellow-soft);
+      color: var(--navy);
+      border-radius: 999px;
+      padding: 4px 14px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .study-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .btn-know {
+      background: #ECFDF5;
+      border: 2px solid #6EE7B7;
+      color: #059669;
+      font-size: 17px;
+      padding: 18px;
+      border-radius: 18px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-know:active { background: #D1FAE5; transform: scale(0.97); }
+
+    .btn-dontknow {
+      background: #FFF1F2;
+      border: 2px solid #FECDD3;
+      color: #E11D48;
+      font-size: 17px;
+      padding: 18px;
+      border-radius: 18px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-dontknow:active { background: #FFE4E6; transform: scale(0.97); }
+
+    .study-nav { display: flex; justify-content: center; }
+
+    /* ══════════════════════════════
+       테스트 모드
+    ══════════════════════════════ */
+    .quiz-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .btn-back {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: var(--navy-soft);
+      color: var(--navy);
+      font-size: 18px;
+      font-weight: 900;
+      cursor: pointer;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+
+    .btn-back:active { background: #D8D3F0; }
+
+    .quiz-header-center {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .quiz-header-center .study-title {
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+
+    .quiz-progress-bar { margin-bottom: 0; }
+
+    .quiz-count-badge {
+      background: var(--yellow);
+      color: var(--navy);
+      font-size: 13px;
+      font-weight: 900;
+      padding: 6px 12px;
+      border-radius: 999px;
+      flex-shrink: 0;
+    }
+
+    .quiz-img {
+      border-radius: 24px;
+      overflow: hidden;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .quiz-image {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .quiz-image-placeholder {
+      width: 100%;
+      height: 260px;
+      background: linear-gradient(135deg, #FFF8E1, #FFF3CD);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .quiz-label {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--muted);
+      text-align: center;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .quiz-choices {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .choice-btn {
+      border: 2px solid var(--line);
+      border-radius: 20px;
+      background: #fff;
+      color: var(--text);
+      font-size: 20px;
+      font-weight: 900;
+      padding: 20px 10px 16px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+      line-height: 1.2;
+      box-shadow: var(--shadow);
+    }
+
+    .choice-btn:active { transform: scale(0.97); }
+
+    .choice-btn .choice-hira {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .choice-btn.correct {
+      border-color: var(--green);
+      background: #ECFDF5;
+      color: #059669;
+    }
+
+    .choice-btn.correct .choice-hira { color: #6EE7B7; }
+
+    .choice-btn.wrong {
+      border-color: var(--red);
+      background: #FFF1F2;
+      color: #E11D48;
+    }
+
+    .choice-btn.reveal-correct {
+      border-color: var(--green);
+      background: #ECFDF5;
+      color: #059669;
+    }
+
+    .quiz-feedback {
+      text-align: center;
+      font-size: 15px;
+      font-weight: 800;
+      padding: 14px 18px;
+      border-radius: 16px;
+      margin-bottom: 8px;
+      display: none;
+      animation: feedbackIn 0.2s ease;
+    }
+
+    @keyframes feedbackIn {
+      from { opacity: 0; transform: translateY(6px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .quiz-feedback.show { display: block; }
+    .quiz-feedback.ok { background: #ECFDF5; color: #059669; }
+    .quiz-feedback.ng { background: #FFF1F2; color: #E11D48; }
+
+    /* ══════════════════════════════
+       결과 화면
+    ══════════════════════════════ */
+    .result-card {
+      padding: 36px 24px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .result-emoji { font-size: 64px; margin-bottom: 16px; }
+    .result-title { font-size: 28px; font-weight: 900; color: var(--navy); margin-bottom: 8px; }
+    .result-sub { font-size: 15px; color: var(--muted); line-height: 1.6; }
+
+    .result-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .result-box {
+      background: #fff;
+      border-radius: 18px;
+      padding: 18px 8px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .result-box .r-val {
+      font-size: 30px;
+      font-weight: 900;
+      color: var(--navy);
+      line-height: 1;
+    }
+
+    .result-box .r-lbl {
+      margin-top: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .result-actions { display: grid; gap: 10px; }
+
+    /* ══════════════════════════════
+       오답 노트
+    ══════════════════════════════ */
+    .wrong-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .wrong-title { font-size: 22px; font-weight: 900; color: var(--navy); }
+
+    .wrong-list { display: grid; gap: 10px; margin-bottom: 20px; }
+
+    .wrong-item {
+      background: #fff;
+      border-radius: 18px;
+      padding: 16px 18px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      align-items: center;
+      box-shadow: var(--shadow);
+    }
+
+    .wrong-emoji { font-size: 32px; }
+
+    .wrong-japanese { font-size: 22px; font-weight: 900; color: var(--navy); line-height: 1.1; }
+    .wrong-hiragana { font-size: 13px; color: var(--yellow-dark); font-weight: 700; margin-top: 2px; }
+    .wrong-korean { font-size: 14px; color: var(--text); font-weight: 700; margin-top: 4px; }
+
+    .empty-state {
+      text-align: center;
+      padding: 48px 20px;
+      color: var(--muted);
+    }
+
+    .empty-state .empty-icon { font-size: 48px; margin-bottom: 12px; }
+    .empty-state p { font-size: 15px; font-weight: 600; }
+
+    /* ── 로딩 ── */
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(250, 250, 250, 0.90);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      display: none;
+    }
+
+    .loading-overlay.show { display: flex; }
+
+    .spinner {
+      width: 44px;
+      height: 44px;
+      border: 4px solid var(--line);
+      border-top-color: var(--yellow);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-bottom: 14px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .loading-text { font-size: 14px; font-weight: 700; color: var(--navy); }
+
+    /* ── 토스트 ── */
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%) translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+      background: var(--navy);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 12px 22px;
+      border-radius: 999px;
+      transition: all 0.2s;
+      z-index: 200;
+      white-space: nowrap;
+    }
+
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ── 반응형 ── */
+    @media (max-width: 400px) {
+      .level-grid { grid-template-columns: repeat(5, 1fr); gap: 5px; }
+      .level-btn { font-size: 13px; padding: 12px 2px; }
+      .card-japanese { font-size: 40px; }
+      .quiz-choices { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+
+    <!-- ════════ 메인 화면 ════════ -->
+    <div id="screenMain" class="screen active">
+      <div class="main-hero">
+        <div class="logo">🇯🇵</div>
+        <h1>일본어 이미지 단어장</h1>
+        <p>JLPT 단어를 이미지로 직관적으로 학습합니다.</p>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-box">
+          <div class="stat-val" id="statLearned">0</div>
+          <div class="stat-lbl">오늘 학습</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" id="statAccuracy">—</div>
+          <div class="stat-lbl">정답률</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" id="statWrong">0</div>
+          <div class="stat-lbl">오답 단어</div>
+        </div>
+      </div>
+
+      <div class="section-label">레벨 선택</div>
+      <div class="level-grid" id="levelGrid">
+        <button class="level-btn selected" data-level="N5">N5</button>
+        <button class="level-btn" data-level="N4">N4</button>
+        <button class="level-btn" data-level="N3">N3</button>
+        <button class="level-btn" data-level="N2">N2</button>
+        <button class="level-btn" data-level="N1">N1</button>
+      </div>
+
+      <div class="section-label">학습 모드</div>
+      <div class="mode-grid">
+        <button class="mode-btn selected" data-mode="study">
+          <span class="mode-icon">📖</span>
+          <span class="mode-name">학습 모드</span>
+          <span class="mode-desc">이미지 + 단어 함께 보기</span>
+        </button>
+        <button class="mode-btn" data-mode="quiz">
+          <span class="mode-icon">🧪</span>
+          <span class="mode-name">테스트 모드</span>
+          <span class="mode-desc">이미지 보고 단어 맞추기</span>
+        </button>
+      </div>
+
+      <div class="config-toggle">
+        <button class="btn btn-ghost" id="configToggleBtn">⚙️ 연동 설정</button>
+        &nbsp;
+        <button class="btn btn-ghost" id="wrongNoteBtn">📝 오답 노트 (<span id="wrongCount">0</span>)</button>
+      </div>
+
+      <div class="config-panel" id="configPanel">
+        <label>Google Sheets CSV URL</label>
+        <input class="config-input" id="sheetsUrl" type="url" placeholder="https://docs.google.com/spreadsheets/d/.../export?format=csv" />
+        <label>Unsplash Access Key (선택)</label>
+        <input class="config-input" id="unsplashKey" type="text" placeholder="your-unsplash-access-key" />
+        <div class="config-hint">
+          이미지: Unsplash(키 입력 시) → Wikipedia → AI 자동 생성 순으로 적용
+        </div>
+        <button type="button" class="btn btn-ghost config-download-btn" id="saveConfigBtn">설정 저장</button>
+        <div class="config-hint" id="vocabCacheInfo"></div>
+      </div>
+
+      <button class="btn btn-primary" id="startBtn">학습 시작하기 →</button>
+    </div>
+
+    <!-- ════════ 학습 모드 ════════ -->
+    <div id="screenStudy" class="screen">
+      <div class="study-header">
+        <div class="study-title" id="studyLevelLabel">N5 학습 모드</div>
+        <div class="study-count" id="studyCount">1 / 20</div>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="studyProgress" style="width:0%"></div>
+      </div>
+
+      <div class="flashcard" id="flashcard">
+        <div class="img-wrap" id="cardImageWrap"></div>
+        <div class="card-body">
+          <div class="card-japanese" id="cardJapanese">—</div>
+          <div class="card-hiragana" id="cardHiragana">—</div>
+          <div class="card-korean" id="cardKorean">—</div>
+          <div class="card-english" id="cardEnglish">—</div>
+          <span class="card-category" id="cardCategory">—</span>
+        </div>
+      </div>
+
+      <div class="study-actions">
+        <button class="btn-know" id="btnKnow">✓ 알아요</button>
+        <button class="btn-dontknow" id="btnDontKnow">✗ 몰라요</button>
+      </div>
+      <div class="study-nav">
+        <button class="btn btn-ghost" id="studyExitBtn">← 메인으로</button>
+      </div>
+    </div>
+
+    <!-- ════════ 테스트 모드 ════════ -->
+    <div id="screenQuiz" class="screen">
+      <div class="quiz-header">
+        <button type="button" class="btn-back" id="quizExitBtn">←</button>
+        <div class="quiz-header-center">
+          <div class="study-title" id="quizLevelLabel">N5 테스트</div>
+          <div class="progress-bar-wrap quiz-progress-bar">
+            <div class="progress-bar-fill" id="quizProgress"></div>
+          </div>
+        </div>
+        <div class="quiz-count-badge" id="quizCount">1 / 20</div>
+      </div>
+
+      <div class="img-wrap quiz-img" id="quizImageWrap"></div>
+
+      <div class="quiz-label">일본어 단어를 골라보세요</div>
+
+      <div class="quiz-choices" id="quizChoices"></div>
+
+      <div class="quiz-feedback" id="quizFeedback"></div>
+    </div>
+
+    <!-- ════════ 결과 화면 ════════ -->
+    <div id="screenResult" class="screen">
+      <div class="card result-card">
+        <div class="result-emoji" id="resultEmoji">🎉</div>
+        <div class="result-title" id="resultTitle">학습 완료!</div>
+        <div class="result-sub" id="resultSub"></div>
+      </div>
+
+      <div class="result-stats">
+        <div class="result-box">
+          <div class="r-val" id="resDone">0</div>
+          <div class="r-lbl">완료</div>
+        </div>
+        <div class="result-box">
+          <div class="r-val" id="resCorrect">0</div>
+          <div class="r-lbl">정답</div>
+        </div>
+        <div class="result-box">
+          <div class="r-val" id="resWrong">0</div>
+          <div class="r-lbl">오답</div>
+        </div>
+      </div>
+
+      <div class="result-actions">
+        <button class="btn btn-primary" id="retryBtn">다시 학습하기</button>
+        <button class="btn btn-ghost" id="resultMainBtn" style="width:100%;padding:14px;">메인으로 돌아가기</button>
+      </div>
+    </div>
+
+    <!-- ════════ 오답 노트 ════════ -->
+    <div id="screenWrong" class="screen">
+      <div class="wrong-header">
+        <div class="wrong-title">📝 오답 노트</div>
+        <button class="btn btn-ghost" id="wrongBackBtn">← 뒤로</button>
+      </div>
+      <div id="wrongList" class="wrong-list"></div>
+      <div style="display:grid;gap:10px;">
+        <button class="btn btn-primary" id="wrongStudyBtn" style="display:none;">오답 단어만 학습하기</button>
+        <button class="btn btn-ghost" id="wrongClearBtn" style="width:100%;padding:14px;display:none;">오답 기록 초기화</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 로딩 -->
+  <div class="loading-overlay" id="loading">
+    <div class="spinner"></div>
+    <div class="loading-text" id="loadingText">단어 불러오는 중...</div>
+  </div>
+
+  <!-- 토스트 -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    /* ══════════════════════════════════════════════
+       내장 N5 샘플 단어 데이터 (약 60개)
+    ══════════════════════════════════════════════ */
+    const SAMPLE_WORDS = [
+      { word_id:'001', level:'N5', japanese:'犬', hiragana:'いぬ', korean:'개', english:'dog', category:'동물', emoji:'🐕' },
+      { word_id:'002', level:'N5', japanese:'猫', hiragana:'ねこ', korean:'고양이', english:'cat', category:'동물', emoji:'🐈' },
+      { word_id:'003', level:'N5', japanese:'魚', hiragana:'さかな', korean:'물고기', english:'fish', category:'동물', emoji:'🐟' },
+      { word_id:'004', level:'N5', japanese:'鳥', hiragana:'とり', korean:'새', english:'bird', category:'동물', emoji:'🐦' },
+      { word_id:'005', level:'N5', japanese:'馬', hiragana:'うま', korean:'말', english:'horse', category:'동물', emoji:'🐴' },
+      { word_id:'006', level:'N5', japanese:'水', hiragana:'みず', korean:'물', english:'water', category:'자연', emoji:'💧' },
+      { word_id:'007', level:'N5', japanese:'火', hiragana:'ひ', korean:'불', english:'fire', category:'자연', emoji:'🔥' },
+      { word_id:'008', level:'N5', japanese:'山', hiragana:'やま', korean:'산', english:'mountain', category:'자연', emoji:'⛰️' },
+      { word_id:'009', level:'N5', japanese:'川', hiragana:'かわ', korean:'강', english:'river', category:'자연', emoji:'🌊' },
+      { word_id:'010', level:'N5', japanese:'花', hiragana:'はな', korean:'꽃', english:'flower', category:'자연', emoji:'🌺' },
+      { word_id:'011', level:'N5', japanese:'木', hiragana:'き', korean:'나무', english:'tree', category:'자연', emoji:'🌲' },
+      { word_id:'012', level:'N5', japanese:'空', hiragana:'そら', korean:'하늘', english:'sky', category:'자연', emoji:'🌤️' },
+      { word_id:'013', level:'N5', japanese:'太陽', hiragana:'たいよう', korean:'태양', english:'sun', category:'자연', emoji:'☀️' },
+      { word_id:'014', level:'N5', japanese:'月', hiragana:'つき', korean:'달', english:'moon', category:'자연', emoji:'🌕' },
+      { word_id:'015', level:'N5', japanese:'雨', hiragana:'あめ', korean:'비', english:'rain', category:'날씨', emoji:'🌧️' },
+      { word_id:'016', level:'N5', japanese:'雪', hiragana:'ゆき', korean:'눈', english:'snow', category:'날씨', emoji:'❄️' },
+      { word_id:'017', level:'N5', japanese:'風', hiragana:'かぜ', korean:'바람', english:'wind', category:'날씨', emoji:'💨' },
+      { word_id:'018', level:'N5', japanese:'学校', hiragana:'がっこう', korean:'학교', english:'school', category:'장소', emoji:'🏫' },
+      { word_id:'019', level:'N5', japanese:'病院', hiragana:'びょういん', korean:'병원', english:'hospital', category:'장소', emoji:'🏥' },
+      { word_id:'020', level:'N5', japanese:'駅', hiragana:'えき', korean:'역', english:'station', category:'장소', emoji:'🚉' },
+      { word_id:'021', level:'N5', japanese:'空港', hiragana:'くうこう', korean:'공항', english:'airport', category:'장소', emoji:'🛫' },
+      { word_id:'022', level:'N5', japanese:'図書館', hiragana:'としょかん', korean:'도서관', english:'library', category:'장소', emoji:'📚' },
+      { word_id:'023', level:'N5', japanese:'公園', hiragana:'こうえん', korean:'공원', english:'park', category:'장소', emoji:'⛲' },
+      { word_id:'024', level:'N5', japanese:'レストラン', hiragana:'れすとらん', korean:'레스토랑', english:'restaurant', category:'장소', emoji:'🍽️' },
+      { word_id:'025', level:'N5', japanese:'車', hiragana:'くるま', korean:'자동차', english:'car', category:'교통', emoji:'🚗' },
+      { word_id:'026', level:'N5', japanese:'電車', hiragana:'でんしゃ', korean:'전철', english:'train', category:'교통', emoji:'🚃' },
+      { word_id:'027', level:'N5', japanese:'バス', hiragana:'ばす', korean:'버스', english:'bus', category:'교통', emoji:'🚌' },
+      { word_id:'028', level:'N5', japanese:'自転車', hiragana:'じてんしゃ', korean:'자전거', english:'bicycle', category:'교통', emoji:'🚲' },
+      { word_id:'029', level:'N5', japanese:'飛行機', hiragana:'ひこうき', korean:'비행기', english:'airplane', category:'교통', emoji:'✈️' },
+      { word_id:'030', level:'N5', japanese:'本', hiragana:'ほん', korean:'책', english:'book', category:'사물', emoji:'📖' },
+      { word_id:'031', level:'N5', japanese:'ペン', hiragana:'ぺん', korean:'펜', english:'pen', category:'사물', emoji:'✒️' },
+      { word_id:'032', level:'N5', japanese:'時計', hiragana:'とけい', korean:'시계', english:'clock', category:'사물', emoji:'⏰' },
+      { word_id:'033', level:'N5', japanese:'電話', hiragana:'でんわ', korean:'전화', english:'telephone', category:'사물', emoji:'📞' },
+      { word_id:'034', level:'N5', japanese:'テレビ', hiragana:'てれび', korean:'텔레비전', english:'television', category:'사물', emoji:'📺' },
+      { word_id:'035', level:'N5', japanese:'カメラ', hiragana:'かめら', korean:'카메라', english:'camera', category:'사물', emoji:'📷' },
+      { word_id:'036', level:'N5', japanese:'コンピュータ', hiragana:'こんぴゅーた', korean:'컴퓨터', english:'computer', category:'사물', emoji:'💻' },
+      { word_id:'037', level:'N5', japanese:'ご飯', hiragana:'ごはん', korean:'밥', english:'rice', category:'음식', emoji:'🍚' },
+      { word_id:'038', level:'N5', japanese:'パン', hiragana:'ぱん', korean:'빵', english:'bread', category:'음식', emoji:'🍞' },
+      { word_id:'039', level:'N5', japanese:'肉', hiragana:'にく', korean:'고기', english:'meat', category:'음식', emoji:'🥩' },
+      { word_id:'040', level:'N5', japanese:'野菜', hiragana:'やさい', korean:'채소', english:'vegetable', category:'음식', emoji:'🥦' },
+      { word_id:'041', level:'N5', japanese:'果物', hiragana:'くだもの', korean:'과일', english:'fruit', category:'음식', emoji:'🍎' },
+      { word_id:'042', level:'N5', japanese:'コーヒー', hiragana:'こーひー', korean:'커피', english:'coffee', category:'음식', emoji:'☕' },
+      { word_id:'043', level:'N5', japanese:'お茶', hiragana:'おちゃ', korean:'차', english:'tea', category:'음식', emoji:'🍵' },
+      { word_id:'044', level:'N5', japanese:'酒', hiragana:'さけ', korean:'술', english:'sake', category:'음식', emoji:'🍶' },
+      { word_id:'045', level:'N5', japanese:'父', hiragana:'ちち', korean:'아버지', english:'father', category:'가족', emoji:'👨' },
+      { word_id:'046', level:'N5', japanese:'母', hiragana:'はは', korean:'어머니', english:'mother', category:'가족', emoji:'👩' },
+      { word_id:'047', level:'N5', japanese:'兄', hiragana:'あに', korean:'형/오빠', english:'older brother', category:'가족', emoji:'👦' },
+      { word_id:'048', level:'N5', japanese:'姉', hiragana:'あね', korean:'누나/언니', english:'older sister', category:'가족', emoji:'👧' },
+      { word_id:'049', level:'N5', japanese:'子供', hiragana:'こども', korean:'어린이', english:'child', category:'가족', emoji:'🧒' },
+      { word_id:'050', level:'N5', japanese:'友達', hiragana:'ともだち', korean:'친구', english:'friend', category:'사람', emoji:'🤝' },
+      { word_id:'051', level:'N5', japanese:'先生', hiragana:'せんせい', korean:'선생님', english:'teacher', category:'사람', emoji:'👩‍🏫' },
+      { word_id:'052', level:'N5', japanese:'学生', hiragana:'がくせい', korean:'학생', english:'student', category:'사람', emoji:'🎓' },
+      { word_id:'053', level:'N5', japanese:'春', hiragana:'はる', korean:'봄', english:'spring', category:'계절', emoji:'🌸' },
+      { word_id:'054', level:'N5', japanese:'夏', hiragana:'なつ', korean:'여름', english:'summer', category:'계절', emoji:'🏖️' },
+      { word_id:'055', level:'N5', japanese:'秋', hiragana:'あき', korean:'가을', english:'autumn', category:'계절', emoji:'🍂' },
+      { word_id:'056', level:'N5', japanese:'冬', hiragana:'ふゆ', korean:'겨울', english:'winter', category:'계절', emoji:'⛄' },
+      { word_id:'057', level:'N5', japanese:'朝', hiragana:'あさ', korean:'아침', english:'morning', category:'시간', emoji:'🌄' },
+      { word_id:'058', level:'N5', japanese:'昼', hiragana:'ひる', korean:'낮', english:'noon', category:'시간', emoji:'🌞' },
+      { word_id:'059', level:'N5', japanese:'夜', hiragana:'よる', korean:'밤', english:'night', category:'시간', emoji:'🌃' },
+      { word_id:'060', level:'N5', japanese:'今日', hiragana:'きょう', korean:'오늘', english:'today', category:'시간', emoji:'🗓️' },
+    ];
+
+    /* ══════════════════════════════════════════════
+       설정 & 상태
+    ══════════════════════════════════════════════ */
+    const CONFIG_KEY  = 'jtango-config';
+    const STORAGE_KEY = 'jtango-progress';
+
+    let config = { sheetsUrl: '', unsplashKey: '' };
+    let progress = { learnedIds: [], wrongIds: [], todayLearned: 0, todayCorrect: 0, todayTotal: 0, lastDate: '' };
+
+    let allWords = [];
+    let sessionWords = [];
+    let sessionIndex = 0;
+    let sessionMode = 'study';   // 'study' | 'quiz' | 'wrong-study' | 'wrong-quiz'
+    let sessionLevel = 'N5';
+    let sessionKnown = 0;
+    let sessionUnknown = 0;
+    let quizAnswered = false;
+    let quizCorrectCount = 0;
+
+    /* ══════════════════════════════════════════════
+       초기화
+    ══════════════════════════════════════════════ */
+    document.addEventListener('DOMContentLoaded', () => {
+      loadConfig();
+      loadProgress();
+      resetTodayIfNeeded();
+      renderMainStats();
+      bindMain();
+    });
+
+    function loadConfig() {
+      try { config = { ...config, ...JSON.parse(localStorage.getItem(CONFIG_KEY) || '{}') }; } catch {}
+      document.getElementById('sheetsUrl').value = config.sheetsUrl || '';
+      document.getElementById('unsplashKey').value = config.unsplashKey || '';
+    }
+
+    function saveConfig() {
+      config.sheetsUrl = document.getElementById('sheetsUrl').value.trim();
+      config.unsplashKey = document.getElementById('unsplashKey').value.trim();
+
+      localStorage.setItem(CONFIG_KEY, JSON.stringify(config));
+    }
+
+    function loadProgress() {
+      try { progress = { ...progress, ...JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}') }; } catch {}
+    }
+
+    function saveProgress() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+    }
+
+    function resetTodayIfNeeded() {
+      const today = new Date().toISOString().slice(0, 10);
+      if (progress.lastDate !== today) {
+        progress.todayLearned = 0;
+        progress.todayCorrect = 0;
+        progress.todayTotal = 0;
+        progress.lastDate = today;
+        saveProgress();
+      }
+    }
+
+    /* ══════════════════════════════════════════════
+       메인 화면 바인딩
+    ══════════════════════════════════════════════ */
+    function bindMain() {
+      // 레벨 선택
+      document.getElementById('levelGrid').addEventListener('click', (e) => {
+        const btn = e.target.closest('.level-btn');
+        if (!btn) return;
+        document.querySelectorAll('.level-btn').forEach((b) => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        sessionLevel = btn.dataset.level;
+      });
+
+      // 모드 선택
+      document.getElementById('mode-grid') || document.querySelector('.mode-grid').addEventListener('click', (e) => {
+        const btn = e.target.closest('.mode-btn');
+        if (!btn) return;
+        document.querySelectorAll('.mode-btn').forEach((b) => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        sessionMode = btn.dataset.mode;
+      });
+
+      document.querySelector('.mode-grid').addEventListener('click', (e) => {
+        const btn = e.target.closest('.mode-btn');
+        if (!btn) return;
+        document.querySelectorAll('.mode-btn').forEach((b) => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        sessionMode = btn.dataset.mode;
+      });
+
+      // 설정 토글
+      document.getElementById('saveConfigBtn').addEventListener('click', () => {
+        saveConfig();
+        showToast('설정이 저장되었습니다.');
+        document.getElementById('configPanel').classList.remove('open');
+      });
+
+      document.getElementById('configToggleBtn').addEventListener('click', () => {
+        document.getElementById('configPanel').classList.toggle('open');
+        updateVocabCacheInfo();
+      });
+
+      // 오답 노트
+      document.getElementById('wrongNoteBtn').addEventListener('click', () => showWrongScreen());
+
+      // 시작
+      document.getElementById('startBtn').addEventListener('click', () => startSession());
+
+      // 학습 모드 버튼
+      document.getElementById('btnKnow').addEventListener('click', () => handleKnow(true));
+      document.getElementById('btnDontKnow').addEventListener('click', () => handleKnow(false));
+      document.getElementById('studyExitBtn').addEventListener('click', () => showScreen('screenMain'));
+
+      // 테스트 모드 버튼
+      document.getElementById('quizExitBtn').addEventListener('click', () => showScreen('screenMain'));
+
+      // 결과 화면
+      document.getElementById('retryBtn').addEventListener('click', () => startSession());
+      document.getElementById('resultMainBtn').addEventListener('click', () => {
+        renderMainStats();
+        showScreen('screenMain');
+      });
+
+      // 오답 노트 버튼
+      document.getElementById('wrongBackBtn').addEventListener('click', () => showScreen('screenMain'));
+      document.getElementById('wrongStudyBtn').addEventListener('click', () => startWrongSession('study'));
+      document.getElementById('wrongClearBtn').addEventListener('click', () => clearWrongList());
+    }
+
+    /* ══════════════════════════════════════════════
+       화면 전환
+    ══════════════════════════════════════════════ */
+    function showScreen(id) {
+      document.querySelectorAll('.screen').forEach((s) => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      window.scrollTo(0, 0);
+    }
+
+    /* ══════════════════════════════════════════════
+       데이터 로드
+    ══════════════════════════════════════════════ */
+    async function fetchWords(level) {
+      // 1순위: Google Sheets (외부 URL 설정 시)
+      if (config.sheetsUrl) {
+        try {
+          showLoading('단어 데이터 불러오는 중...');
+          const res = await fetch(config.sheetsUrl);
+          const csv = await res.text();
+          const words = parseCsv(csv).filter((w) => !level || w.level === level);
+          hideLoading();
+          if (words.length) return words;
+        } catch {
+          hideLoading();
+          showToast('Sheets 로드 실패. 내장 데이터를 사용합니다.');
+        }
+      }
+
+      // 2순위: 하드코딩된 ALL_WORDS (words_data.js)
+      if (typeof ALL_WORDS !== 'undefined') {
+        const words = ALL_WORDS.filter((w) => w.level === level);
+        if (words.length) return words;
+      }
+
+      // 3순위: 내장 샘플 (N5 60개)
+      return SAMPLE_WORDS.filter((w) => w.level === level);
+    }
+
+    function parseCsv(csv) {
+      const lines = csv.trim().split('\n');
+      const headers = lines[0].split(',').map((h) => h.trim().replace(/^"|"$/g, ''));
+      return lines.slice(1).map((line) => {
+        const values = line.split(',').map((v) => v.trim().replace(/^"|"$/g, ''));
+        const obj = {};
+        headers.forEach((h, i) => { obj[h] = values[i] || ''; });
+        return obj;
+      }).filter((w) => w.japanese);
+    }
+
+    /* ══════════════════════════════════════════════
+       이미지 로드 (Unsplash → Wikipedia → AI 순 fallback)
+    ══════════════════════════════════════════════ */
+    const imageCache = {};
+
+    // 이미지 검색용 키워드 추출
+    function toSearchTerm(word) {
+      // 영어 → 한국어 → 일본어 순으로 fallback
+      let term = '';
+      if (word.english && word.english.trim()) {
+        term = word.english.split(',')[0].trim();
+        // "to 동사" → 동명사 (to meet → meeting)
+        if (/^to\s+/i.test(term)) {
+          const verb = term.replace(/^to\s+/i, '').trim();
+          term = verb.endsWith('e') ? verb.slice(0, -1) + 'ing' : verb + 'ing';
+        }
+      } else if (word.korean && word.korean.trim()) {
+        term = word.korean.split(',')[0].trim();
+      } else {
+        term = word.japanese || '';
+      }
+      return term.trim();
+    }
+
+    async function fetchImage(word) {
+      if (word.image_url) return word.image_url;
+      if (imageCache[word.word_id] !== undefined) return imageCache[word.word_id];
+
+      const searchTerm = toSearchTerm(word);
+
+      // 1순위: Unsplash (키 있을 때)
+      if (config.unsplashKey) {
+        try {
+          const url = `https://api.unsplash.com/photos/random?query=${encodeURIComponent(searchTerm)}&orientation=landscape&client_id=${config.unsplashKey}`;
+          const res = await fetch(url);
+          if (res.ok) {
+            const data = await res.json();
+            const imgUrl = data.urls?.regular || null;
+            if (imgUrl) { imageCache[word.word_id] = imgUrl; return imgUrl; }
+          }
+        } catch {}
+      }
+
+      // 2순위: Wikipedia 무료 이미지 (구체적 명사에 효과적)
+      try {
+        const url = `https://en.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(searchTerm)}&prop=pageimages&format=json&pithumbsize=500&origin=*`;
+        const res = await fetch(url);
+        if (res.ok) {
+          const data = await res.json();
+          const pages = data.query?.pages;
+          if (pages) {
+            const imgUrl = Object.values(pages)[0]?.thumbnail?.source || null;
+            if (imgUrl) { imageCache[word.word_id] = imgUrl; return imgUrl; }
+          }
+        }
+      } catch {}
+
+      // 3순위: AI 이미지 생성 (항상 폴백)
+      const prompt = encodeURIComponent(`${searchTerm}, simple clear illustration`);
+      const imgUrl = `https://image.pollinations.ai/prompt/${prompt}?width=500&height=380&nologo=true&seed=${word.word_id.replace(/\D/g,'')||0}`;
+      imageCache[word.word_id] = imgUrl;
+      return imgUrl;
+    }
+
+    function renderImage(wrap, url, korean, english) {
+      const isQuiz = wrap.id === 'quizImageWrap';
+      const imgClass = isQuiz ? 'quiz-image' : 'card-image';
+      const engPart = english ? `<span class="overlay-english">${escHtml(english)}</span>` : '';
+      const overlay = `<div class="img-korean-overlay">${escHtml(korean || '')}${engPart}</div>`;
+
+      wrap.className = 'img-wrap';
+
+      if (url) {
+        const img = document.createElement('img');
+        img.className = imgClass;
+        img.src = url;
+        img.alt = '';
+        img.loading = 'lazy';
+        img.onerror = () => {
+          delete imageCache[wrap._wordId];
+          wrap.innerHTML = `<div class="${isQuiz ? 'quiz-image-placeholder' : 'card-image-placeholder'}"></div>${overlay}`;
+        };
+        wrap.innerHTML = overlay;
+        wrap.insertBefore(img, wrap.firstChild);
+      } else {
+        wrap.innerHTML = `<div class="${isQuiz ? 'quiz-image-placeholder' : 'card-image-placeholder'}"></div>${overlay}`;
+      }
+    }
+
+    /* ══════════════════════════════════════════════
+       세션 시작
+    ══════════════════════════════════════════════ */
+    function shuffle(arr) {
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    async function startSession() {
+      const words = await fetchWords(sessionLevel);
+      if (!words.length) { showToast('단어 데이터가 없습니다.'); return; }
+      allWords = words;
+      sessionWords = shuffle(words).slice(0, Math.min(20, words.length));
+      sessionIndex = 0;
+      sessionKnown = 0;
+      sessionUnknown = 0;
+      quizCorrectCount = 0;
+
+      if (sessionMode === 'study') {
+        showScreen('screenStudy');
+        document.getElementById('studyLevelLabel').textContent = `${sessionLevel} 학습 모드`;
+        await renderStudyCard();
+      } else {
+        showScreen('screenQuiz');
+        document.getElementById('quizLevelLabel').textContent = `${sessionLevel} 테스트`;
+        await renderQuizCard();
+      }
+    }
+
+    async function startWrongSession(mode) {
+      const wrongWords = allWords.filter((w) => progress.wrongIds.includes(w.word_id));
+      if (!wrongWords.length) { showToast('오답 단어가 없습니다.'); return; }
+      sessionWords = shuffle(wrongWords);
+      sessionIndex = 0;
+      sessionKnown = 0;
+      sessionUnknown = 0;
+      quizCorrectCount = 0;
+      sessionMode = mode === 'study' ? 'wrong-study' : 'wrong-quiz';
+
+      if (mode === 'study') {
+        showScreen('screenStudy');
+        document.getElementById('studyLevelLabel').textContent = '오답 단어 학습';
+        await renderStudyCard();
+      } else {
+        showScreen('screenQuiz');
+        document.getElementById('quizLevelLabel').textContent = '오답 단어 테스트';
+        await renderQuizCard();
+      }
+    }
+
+    /* ══════════════════════════════════════════════
+       학습 모드
+    ══════════════════════════════════════════════ */
+    async function renderStudyCard() {
+      if (sessionIndex >= sessionWords.length) { showStudyResult(); return; }
+
+      const word = sessionWords[sessionIndex];
+      const total = sessionWords.length;
+      const current = sessionIndex + 1;
+
+      document.getElementById('studyCount').textContent = `${current} / ${total}`;
+      document.getElementById('studyProgress').style.width = `${(current / total) * 100}%`;
+      document.getElementById('cardJapanese').textContent = word.japanese;
+      document.getElementById('cardHiragana').textContent = word.hiragana;
+      document.getElementById('cardKorean').textContent = word.korean;
+      document.getElementById('cardEnglish').textContent = word.english;
+      document.getElementById('cardCategory').textContent = word.category || '';
+
+      const wrap = document.getElementById('cardImageWrap');
+      wrap.textContent = '…';
+      wrap._wordId = word.word_id;
+      const url = await fetchImage(word);
+      renderImage(wrap, url, word.korean, word.english);
+    }
+
+    async function handleKnow(known) {
+      const word = sessionWords[sessionIndex];
+      if (known) {
+        sessionKnown++;
+        progress.wrongIds = progress.wrongIds.filter((id) => id !== word.word_id);
+        if (!progress.learnedIds.includes(word.word_id)) progress.learnedIds.push(word.word_id);
+      } else {
+        sessionUnknown++;
+        if (!progress.wrongIds.includes(word.word_id)) progress.wrongIds.push(word.word_id);
+      }
+      progress.todayLearned++;
+      saveProgress();
+      sessionIndex++;
+      await renderStudyCard();
+    }
+
+    function showStudyResult() {
+      const total = sessionWords.length;
+      const pct = total ? Math.round((sessionKnown / total) * 100) : 0;
+      document.getElementById('resultEmoji').textContent = pct >= 80 ? '🎉' : pct >= 50 ? '📚' : '💪';
+      document.getElementById('resultTitle').textContent = pct >= 80 ? '훌륭해요!' : pct >= 50 ? '잘 하고 있어요!' : '조금 더 연습해요!';
+      document.getElementById('resultSub').textContent = `${total}개 단어 학습 완료. 알아요 ${sessionKnown}개, 몰라요 ${sessionUnknown}개.`;
+      document.getElementById('resDone').textContent = total;
+      document.getElementById('resCorrect').textContent = sessionKnown;
+      document.getElementById('resWrong').textContent = sessionUnknown;
+      showScreen('screenResult');
+    }
+
+    /* ══════════════════════════════════════════════
+       테스트 모드
+    ══════════════════════════════════════════════ */
+    async function renderQuizCard() {
+      if (sessionIndex >= sessionWords.length) { showQuizResult(); return; }
+
+      quizAnswered = false;
+      const word = sessionWords[sessionIndex];
+      const total = sessionWords.length;
+      const current = sessionIndex + 1;
+
+      document.getElementById('quizCount').textContent = `${current} / ${total}`;
+      document.getElementById('quizProgress').style.width = `${(current / total) * 100}%`;
+      document.getElementById('quizFeedback').className = 'quiz-feedback';
+
+      const wrap = document.getElementById('quizImageWrap');
+      wrap.textContent = '…';
+      wrap._wordId = word.word_id;
+      const url = await fetchImage(word);
+      renderImage(wrap, url, word.korean, word.english);
+
+      // 보기 4개 생성
+      const others = shuffle(allWords.filter((w) => w.word_id !== word.word_id)).slice(0, 3);
+      const choices = shuffle([word, ...others]);
+
+      const choicesEl = document.getElementById('quizChoices');
+      choicesEl.innerHTML = choices.map((c) => `
+        <button class="choice-btn" data-id="${c.word_id}">
+          ${escHtml(c.japanese)}
+          <span class="choice-hira">${escHtml(c.hiragana)}</span>
+        </button>
+      `).join('');
+
+      choicesEl.querySelectorAll('.choice-btn').forEach((btn) => {
+        btn.addEventListener('click', () => handleQuizAnswer(btn, word));
+      });
+    }
+
+    function handleQuizAnswer(btn, word) {
+      if (quizAnswered) return;
+      quizAnswered = true;
+
+      const isCorrect = btn.dataset.id === word.word_id;
+      const feedback = document.getElementById('quizFeedback');
+
+      if (isCorrect) {
+        btn.classList.add('correct');
+        feedback.textContent = `✓ 정답! ${word.japanese} = ${word.korean}${word.english ? '  ·  ' + word.english : ''}`;
+        feedback.className = 'quiz-feedback show ok';
+        quizCorrectCount++;
+        progress.wrongIds = progress.wrongIds.filter((id) => id !== word.word_id);
+      } else {
+        btn.classList.add('wrong');
+        feedback.textContent = `✗ 오답. 정답은 ${word.japanese} (${word.korean}${word.english ? ' · ' + word.english : ''})`;
+        feedback.className = 'quiz-feedback show ng';
+        if (!progress.wrongIds.includes(word.word_id)) progress.wrongIds.push(word.word_id);
+      }
+
+      // 정답 버튼 표시
+      document.querySelectorAll('.choice-btn').forEach((b) => {
+        if (b.dataset.id === word.word_id) b.classList.add('reveal-correct');
+        b.style.pointerEvents = 'none';
+      });
+
+      progress.todayTotal++;
+      progress.todayCorrect += isCorrect ? 1 : 0;
+      progress.todayLearned++;
+      saveProgress();
+
+      setTimeout(() => nextCard(), 1200);
+    }
+
+    function nextCard() {
+      sessionIndex++;
+      if (sessionMode === 'quiz' || sessionMode === 'wrong-quiz') {
+        renderQuizCard();
+      } else {
+        renderStudyCard();
+      }
+    }
+
+    function showQuizResult() {
+      const total = sessionWords.length;
+      const pct = total ? Math.round((quizCorrectCount / total) * 100) : 0;
+      document.getElementById('resultEmoji').textContent = pct >= 80 ? '🏆' : pct >= 50 ? '📖' : '🔥';
+      document.getElementById('resultTitle').textContent = `정답률 ${pct}%`;
+      document.getElementById('resultSub').textContent = `${total}문제 중 ${quizCorrectCount}개 정답!`;
+      document.getElementById('resDone').textContent = total;
+      document.getElementById('resCorrect').textContent = quizCorrectCount;
+      document.getElementById('resWrong').textContent = total - quizCorrectCount;
+      showScreen('screenResult');
+    }
+
+    /* ══════════════════════════════════════════════
+       오답 노트
+    ══════════════════════════════════════════════ */
+    function showWrongScreen() {
+      const wrongWords = (allWords.length ? allWords : SAMPLE_WORDS)
+        .filter((w) => progress.wrongIds.includes(w.word_id));
+
+      const list = document.getElementById('wrongList');
+      const studyBtn = document.getElementById('wrongStudyBtn');
+      const clearBtn = document.getElementById('wrongClearBtn');
+
+      if (!wrongWords.length) {
+        list.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">✨</div>
+            <p>오답 단어가 없습니다.</p>
+          </div>`;
+        studyBtn.style.display = 'none';
+        clearBtn.style.display = 'none';
+      } else {
+        list.innerHTML = wrongWords.map((w) => `
+          <div class="wrong-item">
+            <div class="wrong-emoji">${w.emoji || '📝'}</div>
+            <div>
+              <div class="wrong-japanese">${escHtml(w.japanese)}</div>
+              <div class="wrong-hiragana">${escHtml(w.hiragana)}</div>
+              <div class="wrong-korean">${escHtml(w.korean)} · ${escHtml(w.english)}</div>
+            </div>
+          </div>`).join('');
+        studyBtn.style.display = 'block';
+        clearBtn.style.display = 'block';
+      }
+
+      showScreen('screenWrong');
+    }
+
+    function clearWrongList() {
+      if (!confirm('오답 기록을 모두 삭제하시겠습니까?')) return;
+      progress.wrongIds = [];
+      saveProgress();
+      renderMainStats();
+      showWrongScreen();
+    }
+
+    /* ══════════════════════════════════════════════
+       메인 통계 렌더링
+    ══════════════════════════════════════════════ */
+    function renderMainStats() {
+      document.getElementById('statLearned').textContent = progress.todayLearned;
+      const pct = progress.todayTotal
+        ? Math.round((progress.todayCorrect / progress.todayTotal) * 100) + '%'
+        : '—';
+      document.getElementById('statAccuracy').textContent = pct;
+      document.getElementById('statWrong').textContent = progress.wrongIds.length;
+      document.getElementById('wrongCount').textContent = progress.wrongIds.length;
+    }
+
+    /* ══════════════════════════════════════════════
+       단어 캐시 상태 표시
+    ══════════════════════════════════════════════ */
+    function updateVocabCacheInfo() {
+      const el = document.getElementById('vocabCacheInfo');
+      if (!el) return;
+      if (typeof ALL_WORDS === 'undefined') {
+        el.textContent = '내장 단어 없음 (words_data.js 누락)';
+        return;
+      }
+      const parts = ['N5','N4','N3','N2','N1'].map((l) => {
+        const cnt = ALL_WORDS.filter((w) => w.level === l).length;
+        return cnt ? `${l} ${cnt}개` : null;
+      }).filter(Boolean);
+      el.textContent = `내장 단어: ${parts.join(' · ')} (총 ${ALL_WORDS.length}개)`;
+    }
+
+    /* ══════════════════════════════════════════════
+       로딩 / 토스트
+    ══════════════════════════════════════════════ */
+    function showLoading(text) {
+      document.getElementById('loadingText').textContent = text || '불러오는 중...';
+      document.getElementById('loading').classList.add('show');
+    }
+
+    function hideLoading() {
+      document.getElementById('loading').classList.remove('show');
+    }
+
+    let toastTimer;
+    function showToast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => el.classList.remove('show'), 2400);
+    }
+
+    /* ══════════════════════════════════════════════
+       유틸
+    ══════════════════════════════════════════════ */
+    function escHtml(v) {
+      return String(v)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{
+    "plantuml.java": "C:\\Program Files\\Eclipse Adoptium\\jdk-17.0.15.6-hotspot\\bin\\java.exe",
+"plantuml.commandArgs": [
+    "-DPLANTUML_LIMIT_SIZE=8192",
+    "-Dfile.encoding=UTF-8",
+    "-Dsun.java2d.uiScale=2"
+],
+"plantuml.exportFormat": "png",
+"plantuml.render": "Local",
+
+    "tabnine.experimentalAutoImports": true,
+    "[python]": {
+        "editor.formatOnType": true
+    },
+    "cmake.configureOnOpen": true,
+    "workbench.colorTheme": "One Dark Pro Darker",
+    "cpp.dbgAdapterVerbose": true,
+    "C_Cpp.commentContinuationPatterns": [
+           
+        "/**"
+    ],
+    "aws.suppressPrompts": {
+        "codeWhispererConnectionExpired": true
+    },
+    "amazonQ.suppressPrompts": {
+        "codeWhispererConnectionExpired": true
+    },
+    "workbench.sideBar.location": "right"
+}  

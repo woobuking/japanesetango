@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \"import openpyxl; wb = openpyxl.load_workbook\\('d:/Projects/japanese tango/DB/일본어JLPT레벨N5단어장.xlsx'\\); ws = wb.active; rows = list\\(ws.iter_rows\\(values_only=True\\)\\); print\\('시트:', wb.sheetnames\\); print\\('행수:', len\\(rows\\)\\); print\\('첫 5행:'\\); [print\\(r\\) for r in rows[:5]]\")",
+      "Bash(python -c ' *)",
+      "Bash(python -c \"import sys; sys.stdout.reconfigure\\(encoding='utf-8'\\); print\\(sys.stdin.read\\(\\)\\)\")",
+      "Bash(pip install *)",
+      "Bash(findstr /v \"WARNING\\\\|UserWarning\\\\|warn\")",
+      "Bash(python convert_db.py)",
+      "Bash(findstr /v \"FontBBox\")",
+      "Bash(python build.py)",
+      "Bash(python fill_english.py)"
+    ]
+  }
+}
